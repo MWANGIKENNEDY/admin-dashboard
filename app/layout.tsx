@@ -1,16 +1,15 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
+import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
+import AppSidebar from "@/components/appSidebar";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+import MyMantineProvider from "@/components/mantine-provider";
+import '@mantine/charts/styles.css';
+import '@mantine/core/styles.css';
+
+
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -23,11 +22,47 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {children}
+    <html lang="en" suppressHydrationWarning className="">
+      <body>
+        <MyMantineProvider>
+        <SidebarProvider>
+          <AppSidebar />
+       
+
+          <main className=" w-full bg-slate-100 dark:bg-gray-500  ">
+
+            <div className="h-20  flex items-center p-4 bg-white shadow dark:bg-gray-900">
+
+            <SidebarTrigger/>
+            </div>
+       
+            {children}
+            
+            </main>
+
+
+
+
+
+        
+        </SidebarProvider>
+
+        <footer className="bg-gray-300">
+  <div className="mx-auto max-w-screen-xl px-4 py-8 sm:px-6 lg:px-8">
+    <div className="sm:flex sm:items-center sm:justify-between">
+      <div className="flex justify-center text-teal-600 sm:justify-start">
+       Admin Template::
+      </div>
+
+      <p className="mt-4 text-center text-sm text-gray-500 lg:mt-0 lg:text-right">
+        Copyright &copy; 2022. All rights reserved.
+      </p>
+    </div>
+  </div>
+</footer>
+
+        </MyMantineProvider>
+
       </body>
     </html>
   );
